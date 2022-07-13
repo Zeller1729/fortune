@@ -16,22 +16,33 @@ const quiz = [
     question: 'ナイフ、ピラミッド、砂糖、亀、犬小屋、宇宙、鍋、深海',
   }
 ];
-//quiz.sort(() => 0.5 - Math.random());
 
 const quizLength = quiz.length;
 let quizIndex = 0;
 
 const answerInput = document.getElementById('answer-input');
 const submitButton = document.getElementById('submit-button');
+const submitButton2 = document.getElementById('submit-button2');
+
 
 // クイズの問題文を表示
 const setupQuiz = () => {
   document.getElementById('js-text').textContent = quiz[quizIndex].text;
   document.getElementById('js-question').textContent = quiz[quizIndex].question;
-  //answerInput.value = '';
 };
 
 setupQuiz();
+
+const clickreverser = () => {
+  if (quizIndex > 0) {
+    quizIndex--; // 次の問題へ
+    quiz[quizIndex].input = setupQuiz.value;
+    setupQuiz();
+  } else {
+    window.alert('これ以上戻れません。');
+  }
+};
+
 
 const clickHandler = () => {
   quiz[quizIndex].input = setupQuiz.value;
@@ -40,23 +51,14 @@ const clickHandler = () => {
     setupQuiz();
   } else {
     window.alert('あなたがえらんだものは砂糖です。');
-    //showAllAnswers();
   }
 };
 
-// ボタンクリックで正誤判定
+// ボタンクリックで前の問いへ
 submitButton.addEventListener('click', () => {
+  clickreverser();
+});
+// ボタンクリックで次の問いへ
+submitButton2.addEventListener('click', () => {
   clickHandler();
 });
-
-/*const showAllAnswers = () => {
-  const container = document.getElementById('all-answers-container');
-  container.style.display = 'block';
-  
-  const tbody = document.getElementById('all-answers-tbody');
-  for (const q of quiz) {
-    const row = document.createElement('tr');
-    row.innerHTML = `<td>${q.question}</td><td>${q.input}</td><td>${q.correct}</td><td>${q.input === q.correct ? '○' : '×'}</td>`;
-    tbody.appendChild(row);
-  }
-};*/
